@@ -54,8 +54,14 @@ aaa <- fn_parse_web_page(xml_temp)
 aaa
 
 lst_xml <- lapply(lst_html_results, xmlParse)
+
+
 lst_df <- lapply(lst_xml, fn_parse_web_page)
+
+
+
 df_result <- do.call(rbind, lst_df)
+
 
 # create an area variable
 df_result <- df_result %>% mutate(area =  gsub("^.*, ", "", loc))
