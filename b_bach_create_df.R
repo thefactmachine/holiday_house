@@ -2,6 +2,7 @@ library(xml2)
 library(dplyr)
 library(XML)
 library(stringr)
+library(codetools)
 
 rm(list = ls())
 
@@ -41,32 +42,12 @@ load("outputs/book_a_bach_html_data.rda")
 # used within: fn_parse_web_page()
 bln_DEBUG <- FALSE
 
-# convert the text based html to "XMLInternalDocument"
-lst_xml <- lapply(lst_html_results, xmlParse) 
-
-
-for (i in 1: length(lst_xml)) {
-  aa <- fn_parse_web_page(lst_xml[[i]])
-   print(i)
-}
-
-# this fails at element 331
-bln_DEBUG <- TRUE
-temp_xml <- lst_xml[[75]]
-# XML::saveXML(temp_xml, file = "test.xml")
-
-# "https://www.bookabach.co.nz/baches-and-holiday-homes/search/locale/new-zealand/page/"
-
-
-fn_extract_price(temp_xml) %>% length()
-
-fn_parse_web_page(temp_xml)
-
+# convert the html documents to xml objects
+lst_xml <- lapply(lst_html_results, xmlParse)
 
 # apply the function to each list element..this is 
 lst_df <- lapply(lst_xml, fn_parse_web_page)
 
- 
 # club the data.frames together
 df_bab_result <- do.call(rbind, lst_df)
 

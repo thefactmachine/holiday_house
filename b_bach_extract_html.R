@@ -28,7 +28,6 @@ str_base_url <- paste0("https://www.bookabach.co.nz/baches-and-",
 int_start_page <- 1
 # this function determines how many summary pages there are
 source("r_book_a_bach/fn_get_b_a_bach_page_total.R")
-# this function determines how many web pages there are
 int_tot_pages <- fn_get_b_a_bach_page_total()
 
 # create a blank list..this gets populated in the for loop
@@ -49,3 +48,4 @@ for (i in int_start_page: int_tot_pages) {
 }
 
 save(lst_html_results, file = "outputs/book_a_bach_html_data.rda")
+

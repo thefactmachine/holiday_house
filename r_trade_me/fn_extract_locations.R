@@ -1,8 +1,11 @@
-fn_extract_locations <- function(xml_doc) {
+fn_extract_locations <- function(a_html) {
   # receives xml document and it returns a character vector of locations
-  xPath_exp <- strwrap("//div[@class = 'ListCard-content group']//
-                       div[@class = 'ListCard-location']/a")
-  vct_locations <- xpathSApply(xml_doc, xPath_exp, xmlValue) %>% 
-                    ifelse(. == "", NA, .)
-  return(vct_locations)
+  lcl_xp <- paste0("//div[@class = 'ListCard-content group']//",
+                       "div[@class = 'ListCard-location']/a")
+  
+  lcl_xml_ns <- xml2::xml_find_all(a_html, lcl_xp)
+  lcl_str_ref <- xml2::xml_text(lcl_xml_ns) %>% ifelse(. == "", NA, .)
+  return(lcl_str_ref)
+
 }
+
